@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 580" width="480" height="580">
+  <!-- SmartSoil mark: three petals (light, water, temperature) on a stem, the soil drop with its moisture-by-depth
+       layers below. Strokes 12 everywhere so it survives at favicon size. Colours: the app's palette. -->
+  <defs>
+    <!-- a petal, tip at the origin, pointing up -->
+    <path id="petal" d="M0 0 C-42 -38 -66 -88 -46 -132 C-30 -166 30 -166 46 -132 C66 -88 42 -38 0 0 Z"/>
+    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2e36b"/>
+      <stop offset=".5" stop-color="#9fd3b8"/>
+      <stop offset="1" stop-color="#5ac8e8"/>
+    </linearGradient>
+    <clipPath id="dropclip"><path d="M240 356 C240 356 304 418 304 462 A64 64 0 0 1 176 462 C176 418 240 356 240 356 Z"/></clipPath>
+  </defs>
+  <circle cx="240" cy="246" r="222" fill="none" stroke="currentColor" stroke-width="12"/>
+  <g stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <!-- stem and leaves -->
+    <line x1="240" y1="232" x2="240" y2="356"/>
+    <path d="M240 300 C216 300 196 288 190 262 C216 262 236 274 240 300 Z" fill="none"/>
+    <path d="M240 322 C264 322 284 310 290 284 C264 284 244 296 240 322 Z" fill="none"/>
+    <!-- petals: light (top), water (left), temperature (right) -->
+    <use href="#petal" x="240" y="232" fill="none"/>
+    <use href="#petal" transform="translate(240 232) rotate(-118)" fill="none"/>
+    <use href="#petal" transform="translate(240 232) rotate(118)" fill="none"/>
+    <!-- the soil drop: dry at the top, wet at the bottom -->
+    <g clip-path="url(#dropclip)" stroke="none">
+      <rect x="170" y="350" width="140" height="180" fill="none"/>
+      <g fill="currentColor" opacity=".16"><rect x="170" y="398" width="140" height="6"/><rect x="170" y="436" width="140" height="6"/><rect x="170" y="474" width="140" height="6"/></g>
+    </g>
+    <path d="M240 356 C240 356 304 418 304 462 A64 64 0 0 1 176 462 C176 418 240 356 240 356 Z" fill="none"/>
+  </g>
+  <!-- one white dot per petal, as in the original -->
+  <g fill="currentColor" stroke="none">
+    <circle cx="240" cy="132" r="10"/>
+    <circle cx="150" cy="282" r="10"/>
+    <circle cx="330" cy="282" r="10"/>
+  </g>
+  <text x="240" y="552" text-anchor="middle" font-family="Nunito, 'Segoe UI', system-ui, sans-serif" font-weight="800" font-size="66" letter-spacing="-1" fill="currentColor">SmartSoil</text>
+</svg>

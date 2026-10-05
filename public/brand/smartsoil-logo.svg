@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 580" width="480" height="580">
+  <!-- SmartSoil mark: three petals (light, water, temperature) on a stem, the soil drop with its moisture-by-depth
+       layers below. Strokes 12 everywhere so it survives at favicon size. Colours: the app's palette.
+       The wordmark is live text: convert it to outlines (Inkscape, Path > Object to Path) for print. -->
+  <defs>
+    <!-- a petal, tip at the origin, pointing up -->
+    <path id="petal" d="M0 0 C-42 -38 -66 -88 -46 -132 C-30 -166 30 -166 46 -132 C66 -88 42 -38 0 0 Z"/>
+    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2e36b"/>
+      <stop offset=".5" stop-color="#9fd3b8"/>
+      <stop offset="1" stop-color="#5ac8e8"/>
+    </linearGradient>
+    <path id="drop" d="M240 330 C240 330 288 376 288 406 A48 48 0 0 1 192 406 C192 376 240 330 240 330 Z"/>
+    <clipPath id="dropclip"><use href="#drop"/></clipPath>
+  </defs>
+  <circle cx="240" cy="240" r="222" fill="#fff" stroke="#111" stroke-width="12"/>
+  <g stroke="#111" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <line x1="240" y1="232" x2="240" y2="330"/>
+    <path d="M240 294 C216 294 196 282 190 256 C216 256 236 268 240 294 Z" fill="#34d399"/>
+    <path d="M240 316 C264 316 284 304 290 278 C264 278 244 290 240 316 Z" fill="#34d399"/>
+    <!-- petals: light (top), water (left), temperature (right) -->
+    <use href="#petal" x="240" y="232" fill="#fbd21a"/>
+    <use href="#petal" transform="translate(240 232) rotate(-118)" fill="#5a7cff"/>
+    <use href="#petal" transform="translate(240 232) rotate(118)" fill="#f26444"/>
+    <!-- the soil drop: dry at the top, wet at the bottom, three depth lines -->
+    <g clip-path="url(#dropclip)" stroke="none">
+      <rect x="190" y="326" width="100" height="132" fill="url(#soil)"/>
+      <g fill="#111" opacity=".18"><rect x="190" y="372" width="100" height="5"/><rect x="190" y="400" width="100" height="5"/><rect x="190" y="428" width="100" height="5"/></g>
+    </g>
+    <use href="#drop" fill="none"/>
+  </g>
+  <text x="240" y="552" text-anchor="middle" font-family="Nunito, 'Segoe UI', system-ui, sans-serif" font-weight="800" font-size="66" letter-spacing="-1" fill="#111">SmartSoil</text>
+</svg>
