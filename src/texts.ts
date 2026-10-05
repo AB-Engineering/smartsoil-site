@@ -3,7 +3,7 @@
 export type Lang = "it" | "en";
 
 const it = {
-  title: "SmartSoil — il profilo idrico del substrato, da 1 a 10 cm",
+  title: "SmartSoil · smart-soil.eu — il profilo idrico del substrato, da 1 a 10 cm",
   description: "SmartSoil legge come l'acqua si muove nel vaso, strato per strato. Una sentinella per zona, non un sensore per vaso. Programma pilota 2026 per vivai, manutenzione del verde e ricerca.",
   nav_how: "Come funziona", nav_learn: "Apprendimento", nav_why: "Perché è diverso", nav_uses: "Applicazioni", nav_pilot: "Programma pilota",
   login: "Accedi", language: "Lingua", theme: "Tema",
@@ -76,7 +76,7 @@ const it = {
 };
 
 const en: typeof it = {
-  title: "SmartSoil — the substrate water profile, 1 to 10 cm",
+  title: "SmartSoil · smart-soil.eu — the substrate water profile, 1 to 10 cm",
   description: "SmartSoil reads how water moves through the pot, layer by layer. One sentinel per zone, not a sensor per pot. 2026 pilot programme for nurseries, landscape maintenance and research.",
   nav_how: "How it works", nav_learn: "Learning", nav_why: "Why it is different", nav_uses: "Applications", nav_pilot: "Pilot programme",
   login: "Sign in", language: "Language", theme: "Theme",
