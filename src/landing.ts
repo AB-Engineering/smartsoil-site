@@ -36,7 +36,7 @@ function depthFigure(profile: number[], id: string, focus?: [number, number]): T
   const top = 246, bottom = 316, step = (bottom - top) / 10;  // the pot body: rim at 246, foot at 316 (measured on the photo)
   const layers = [...profile].reverse();  // surface first
   return html`<div class="shot">
-    <svg viewBox="118 24 332 310" aria-hidden="true">
+    <svg viewBox="130 24 310 310" aria-hidden="true">
       <image href=${`${import.meta.env.BASE_URL}img/hero-pot.png`} x="0" y="0" width="500" height="334"/>
       <defs>
         <clipPath id=${`${id}-clip`}><path d="M208 246 H305 L290 316 H224 Z"/></clipPath>
@@ -47,16 +47,18 @@ function depthFigure(profile: number[], id: string, focus?: [number, number]): T
         ${layers.map((_, i) => svg`<line x1="200" x2="330" y1=${top + i * step} y2=${top + i * step} stroke="rgba(0,0,0,.2)" stroke-width=".8"/>`)}
       </g>
       <g font-size="11" fill="#fff" stroke="none" style="text-shadow:0 1px 3px rgba(0,0,0,.8)">
-        <rect x="311" y=${top} width="6" height=${bottom - top} rx="2" fill=${`url(#${id}-scale)`} stroke="rgba(0,0,0,.4)" stroke-width=".6"/>
-        <line x1="322" y1=${top} x2="322" y2=${bottom} stroke="#fff" stroke-width="1.2"/>
-        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((cm) => svg`<line x1="322" x2=${cm % 5 === 0 || cm === 1 ? 332 : 327} y1=${top + (cm - 1) * step + step / 2} y2=${top + (cm - 1) * step + step / 2} stroke="#fff" stroke-width="1.2"/>`)}
-        <text x="336" y=${top + step / 2 + 4}>1 cm · ${t.depth_surface} · <tspan fill=${moistureColor(0)} font-weight="700">${t.dry}</tspan></text>
-        <text x="336" y=${top + 4.5 * step + 4}>5 cm</text>
-        <text x="336" y=${top + 9.5 * step + 4}>10 cm · ${t.depth_deep} · <tspan fill=${moistureColor(1)} font-weight="700">${t.wet}</tspan></text>
+        <rect x="196" y=${top} width="6" height=${bottom - top} rx="2" fill=${`url(#${id}-scale)`} stroke="rgba(0,0,0,.4)" stroke-width=".6"/>
+        <text x="191" y=${top + 9} text-anchor="end" fill=${moistureColor(0)} font-weight="700">${t.dry}</text>
+        <text x="191" y=${bottom - 2} text-anchor="end" fill=${moistureColor(1)} font-weight="700">${t.wet}</text>
+        <line x1="320" y1=${top} x2="320" y2=${bottom} stroke="#fff" stroke-width="1.2"/>
+        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((cm) => svg`<line x1="320" x2=${cm % 5 === 0 || cm === 1 ? 330 : 325} y1=${top + (cm - 1) * step + step / 2} y2=${top + (cm - 1) * step + step / 2} stroke="#fff" stroke-width="1.2"/>`)}
+        <text x="334" y=${top + step / 2 + 4}>1 cm · ${t.depth_surface}</text>
+        <text x="334" y=${top + 4.5 * step + 4}>5 cm</text>
+        <text x="334" y=${top + 9.5 * step + 4}>10 cm · ${t.depth_deep}</text>
         <path d=${`M257 ${top - 20} v${bottom - top + 14}`} stroke="#fff" stroke-width="2" stroke-dasharray="3 3" opacity=".9"/>
         <rect x="251" y=${top - 30} width="12" height="10" rx="2" fill="#34d399"/>
       </g>
-      ${focus ? svg`<path class="focus" d=${`M204 ${top + (focus[0] - 1) * step} h-8 v${(focus[1] - focus[0] + 1) * step} h8`} fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>` : nothing}
+      ${focus ? svg`<path class="focus" d=${`M308 ${top + (focus[0] - 1) * step} h6 v${(focus[1] - focus[0] + 1) * step} h-6`} fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>` : nothing}
     </svg>
   </div>`;
 }
