@@ -1,0 +1,56 @@
+# Deploy smart-soil.eu to the OVH shared hosting on every push to main: build dist/ and mirror it over SFTP into
+# the site's own webroot (default: smartsoil/ — NOT www/, that is another site on the same hosting). Same pattern
+# as home-shelf-manager's deploy-frontend.yml; deploy-ovh.sh does the same from a laptop.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   FTP_HOST   e.g. ftp.clusterNNN.hosting.ovh.net
+#   FTP_USER   the SFTP username
+#   FTP_PASS   the SFTP password
+# Optional repo variables (not secret):
+#   OVH_REMOTE_DIR   webroot folder on the hosting (default: smartsoil)
+#   SITE_API_BASE    the platform API the form posts to (default: https://api.smart-soil.eu)
+#   SITE_APP_URL     where "Sign in" goes (default: https://app.smart-soil.eu)
+name: deploy-ovh
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ovh
+  cancel-in-progress: false  # never overlap two uploads to the same webroot
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      REMOTE_DIR: ${{ vars.OVH_REMOTE_DIR || 'smartsoil' }}
+      VITE_API_BASE: ${{ vars.SITE_API_BASE || 'https://api.smart-soil.eu' }}
+      VITE_APP_URL: ${{ vars.SITE_APP_URL || 'https://app.smart-soil.eu' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Upload dist/ to OVH over SFTP
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          test -n "$FTP_HOST" && test -n "$FTP_USER" && test -n "$FTP_PASS" || {
+            echo "::error::FTP_HOST / FTP_USER / FTP_PASS secrets are not set"; exit 1; }
+          case "$REMOTE_DIR" in ""|www|www/|/|.) echo "::error::refusing to deploy into '$REMOTE_DIR'"; exit 1;; esac
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          # reverse mirror (local -> remote), NO --delete: only this folder is touched, old hashed bundles linger
+          lftp -u "$FTP_USER,$FTP_PASS" "sftp://$FTP_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          mirror -R --verbose --no-perms dist/ ${REMOTE_DIR}/
+          bye
+          LFTP
