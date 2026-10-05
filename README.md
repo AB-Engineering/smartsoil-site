@@ -1,8 +1,8 @@
 # smartsoil-site
 
 The public site of SmartSoil, `smart-soil.eu`: what the probe sees (the 1–10 cm moisture profile), who it is for,
-and the pilot-partner form. Static, Vite + TypeScript + Lit, Italian and English (`src/texts.ts`), published to
-GitHub Pages by `.github/workflows/pages.yml` on every push to `main` (custom domain in `public/CNAME`).
+and the pilot-partner form. Static, Vite + TypeScript + Lit, Italian and English (`src/texts.ts`), deployed to the
+OVH shared hosting by `.github/workflows/deploy-ovh.yml` on every push to `main` (see "Deploy").
 
 It talks to the platform ([smartsoil-platform](https://github.com/AB-Engineering/smartsoil-platform)) in two places:
 "Sign in" opens the app (`VITE_APP_URL`, default `https://app.smart-soil.eu`) and the form posts to
@@ -23,5 +23,18 @@ npm run dev        # http://localhost:5173
 npm run build      # dist/
 ```
 
-The site is public (GitHub Pages on the free plan needs a public repository): nothing in it is secret, the API
-endpoints it calls are public by design.
+## Deploy
+
+Every push to `main` builds `dist/` and mirrors it over SFTP into the folder `smartsoil/` of the OVH hosting (never
+`www/`, which is another site). Old hashed bundles linger, nothing is deleted. Setup, once:
+
+1. Repo secrets `FTP_HOST`, `FTP_USER`, `FTP_PASS` (Settings → Secrets and variables → Actions): the hosting's SFTP
+   access, the same as home-shelf-manager. Optional repo variables: `OVH_REMOTE_DIR` (default `smartsoil`),
+   `SITE_API_BASE`, `SITE_APP_URL`.
+2. In the OVH manager, Web hosting → Multisite: add `smart-soil.eu` (and `www`) with root folder `smartsoil`, SSL
+   on; the DNS zone of the domain must point at the hosting (A/CNAME records OVH shows there).
+3. Run it: `gh workflow run deploy-ovh` or push.
+
+`./deploy-ovh.sh --deploy` does the same from a laptop with `FTP_HOST`, `FTP_USER`, `FTP_PASS` in the environment.
+
+The repository is public: nothing in it is secret, the API endpoints it calls are public by design.
