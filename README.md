@@ -15,7 +15,7 @@ Both are baked in at build time.
 | `src/texts.ts` | all copy, it/en; `src/i18n.ts` the language choice (same browser key as the app, `ss-lang`) |
 | `src/images.ts` | the photos: the hero pot (`public/img/hero-pot.png`, Freepik, credited) and Unsplash hotlinks, credited in the footer; swap for photos of real pilot sites before launch |
 | `src/base.css` | tokens and shared rules copied from the app so the site looks like the dashboard |
-| `public/brand/` | the logo as SVG: full, square mark, one-colour white |
+| `public/img/logo.jpg` | Andrea's logo, as drawn; `public/og.jpg` the social card built from it |
 
 ```bash
 npm install
