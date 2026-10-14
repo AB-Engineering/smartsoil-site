@@ -1,6 +1,7 @@
 // smart-soil.eu: what the probe sees, who it is for, the pilot-partner form. Same look as the app; "Sign in" goes
 // to the app (__APP_URL__), the form posts to the platform API (__API_BASE__, POST /api/v1/leads). Language and
 // theme share the app's browser keys (ss-lang, ss-theme).
+import "@fontsource-variable/inter";
 import { html, nothing, render, svg, type TemplateResult } from "lit";
 import { icon } from "./icons";
 import { LANGS, lang, setLang, type Lang } from "./i18n";

@@ -12,7 +12,9 @@
 [hidden] { display: none !important; }
 html { color-scheme: dark; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 :root[data-theme="light"] { color-scheme: light; }
-body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.45; min-height: 100dvh; }
+/* one bundled font on every device (@fontsource-variable/inter, latin subset ~48 KB): the layouts are measured on it.
+   Apple's SF may not be served to other platforms */
+body { font-family: "Inter Variable", sans-serif; background: var(--bg); color: var(--text); line-height: 1.45; min-height: 100dvh; }
 a { color: var(--accent); }
 button { font: inherit; cursor: pointer; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 600; color: var(--text); background: var(--panel2); display: inline-flex; align-items: center; gap: 6px; }
 .ic { display: inline-flex; width: 1.3em; height: 1.3em; flex: none; }
